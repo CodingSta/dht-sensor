@@ -1,19 +1,17 @@
 
 # This is the main compiler
-# CXX := mips-openwrt-linux-uclibc-g++
-CXX := /lede/staging_dir/toolchain-mipsel_24kc_gcc-5.4.0_musl/bin/mipsel-openwrt-linux-musl-g++ 
-# CXX := clang --analyze # and comment out the linker last line for sanity
+CXX := g++
 SRCDIR := src
 INCDIR := include
 BUILDDIR := build
 BINDIR := bin
-TARGET := $(BINDIR)/checkHumidity
- 
+TARGET := $(BINDIR)/dht-sensor
+
 SRCEXT := cpp
 SOURCES := $(shell find $(SRCDIR) -type f -name *.$(SRCEXT))
 OBJECTS := $(patsubst $(SRCDIR)/%,$(BUILDDIR)/%,$(SOURCES:.$(SRCEXT)=.o))
 CXXFLAGS := -c -g # -Wall
-LIB := -lrt -pthread -ldl #-pthread -lmongoclient -L lib -lboost_thread-mt -lboost_filesystem-mt -lboost_system-mt
+LIB := -lrt -pthread -ldl
 INC := $(shell find $(INCDIR) -maxdepth 1 -type d -exec echo -I {}  \;)
 
 $(TARGET): $(OBJECTS)
@@ -26,7 +24,7 @@ $(BUILDDIR)/%.o: $(SRCDIR)/%.$(SRCEXT)
 	@echo " $(CXX) $(CXXFLAGS) $(INC) -c -o $@ $<"; $(CXX) $(CXXFLAGS) $(INC) -c -o $@ $<
 
 clean:
-	@echo " Cleaning..."; 
+	@echo " Cleaning...";
 	@echo " $(RM) -r $(BUILDDIR) $(BINDIR)"; $(RM) -r $(BUILDDIR) $(BINDIR)
 
 bla:
