@@ -43,7 +43,7 @@ int main(int argc, char* argv[])
     sensorType = DHT22;
   }
   // output type
-  if (argc > 3 && strcmp(argv[3], "json")) {
+  if (argc > 3 && strcmp(argv[3], "json") == 0) {
     bJsonOutput = 1;
   }
   // check for correct arguments
@@ -66,7 +66,7 @@ int main(int argc, char* argv[])
   } while(result != 0 && maxRetry > 0);
 
   //// output the reading
-  if (bJsonOutput) {
+  if (bJsonOutput == 1) {
       printf("{\"humidity\": %f, \"temperature\": %f}\n", humidity, temperature);
   }
   else {
