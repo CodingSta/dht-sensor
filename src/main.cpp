@@ -61,7 +61,7 @@ int main(int argc, char* argv[])
   //// perform the measurement
   do
   {
-    result = dht_read(sensorType, , &humidity, &temperature);
+    result = dht_read(sensorType, gpioNum, &humidity, &temperature);
     maxRetry--;
   } while(result != 0 && maxRetry > 0);
 
